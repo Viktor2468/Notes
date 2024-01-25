@@ -28,7 +28,7 @@ todoButton.addEventListener("click", (event) => {
 
     const newTodo = document.createElement("input");
     newTodo.setAttribute("value", todoInput.value);
-    newTodo.setAttribute("readonly", true);
+    newTodo.setAttribute("readonly", "readonly");
     newTodo.classList.add("todoItem");
 
     const deleteButton = document.createElement("button");
@@ -110,9 +110,20 @@ todoList.addEventListener('click', (e) => {
     else if (item.classList[0] == "editButton"){
         const editButton = item;
         const newTodo = item.previousSibling.previousSibling;
-        console.log(newTodo);
-        newTodo.toggleAttribute("readonly");
+
         editButton.classList.toggle("checkedButton");
+
+        if (editButton.classList[1] == "checkedButton" ) {
+            newTodo.removeAttribute("readonly")
+            newTodo.setAttribute("value", newTodo.value);
+            saveData();
+        } else {
+            newTodo.setAttribute("readonly", "readonly");
+            newTodo.setAttribute("value", newTodo.value);
+            saveData();
+        }
+
+        editButton.addEventListener("click", saveData);
         newTodo.classList.toggle("checkedText");
         newTodo.focus();
         saveData();
